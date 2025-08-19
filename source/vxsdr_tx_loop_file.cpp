@@ -156,8 +156,15 @@ int main(int argc, char* argv[]) {
         std::cout << "using pri       " << pri_sec << " s" << std::endl;
         std::cout << "using duration  " << duration_sec << " s" << std::endl;
 
+        // start 1-2 seconds in the future
         auto t_start = std::chrono::ceil<std::chrono::seconds>(radio->get_time_now().value()) + 1s;
         std::cout << "start time: " << format_time(t_start) << std::endl;
+
+        // send the data
+        auto n_sent = radio->put_tx_data(tx_wf);
+        if (n_sent != n_samples) {
+            std::cerr << "error sending waveform data" << std::endl;
+        }
 
         // round pri to nearest nanosecond
         vxsdr::duration pri = std::chrono::duration(std::chrono::nanoseconds(std::llround(1e9 * pri_sec)));
