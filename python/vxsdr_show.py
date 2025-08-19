@@ -39,6 +39,7 @@ def get_hello_info(radio, lines=[]):
     lines.append("   unique id             {:16d}".format(hresp[3]))
     lines.append("   packet version        {:>16s}".format(version_string(hresp[4])))
     lines.append("   wire format           {:>16s}".format(wire_format_string(hresp[5])))
+    lines.append("   sample granularity    {:16d}".format((hresp[5] & 0xFF000000) >> 24))
     lines.append("   number of subdevices  {:16d}".format(hresp[6]))
     lines.append("   max payload bytes     {:16d}".format(hresp[7]))
     return lines
