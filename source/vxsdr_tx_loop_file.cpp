@@ -160,17 +160,17 @@ int main(int argc, char* argv[]) {
         auto t_start = std::chrono::ceil<std::chrono::seconds>(radio->get_time_now().value()) + 1s;
         std::cout << "start time: " << format_time(t_start) << std::endl;
 
-        // send the data
-        auto n_sent = radio->put_tx_data(tx_wf);
-        if (n_sent != n_samples) {
-            std::cerr << "error sending waveform data" << std::endl;
-        }
-
-        // round pri to nearest nanosecond
+        // set up loop (round pri to nearest nanosecond)
         vxsdr::duration pri = std::chrono::duration(std::chrono::nanoseconds(std::llround(1e9 * pri_sec)));
         if (not radio->tx_loop(t_start, n_samples, pri, n_pulses)) {
             std::cerr << "tx_loop() failed" << std::endl;
             return 1;
+        }
+
+        // send the data
+        auto n_sent = radio->put_tx_data(tx_wf);
+        if (n_sent != n_samples) {
+            std::cerr << "error sending waveform data" << std::endl;
         }
 
         vxsdr::duration duration = std::chrono::duration(std::chrono::milliseconds(std::llround(1e3 * duration_sec)));
