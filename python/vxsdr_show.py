@@ -1,3 +1,8 @@
+# Copyright (c) 2024 Vesperix Corporation
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# Provides a simple example getting VXSDR device info in Python
+
 import sys
 import argparse
 import datetime
@@ -34,7 +39,7 @@ def get_hello_info(radio, lines=[]):
     lines.append("   unique id             {:16d}".format(hresp[3]))
     lines.append("   packet version        {:>16s}".format(version_string(hresp[4])))
     lines.append("   wire format           {:>16s}".format(wire_format_string(hresp[5])))
-    lines.append("   number subdevs        {:16d}".format(hresp[6]))
+    lines.append("   number of subdevices  {:16d}".format(hresp[6]))
     lines.append("   max payload bytes     {:16d}".format(hresp[7]))
     return lines
 
@@ -44,23 +49,23 @@ def get_sensor_info(radio, lines=[]):
     for i in range(radio.get_num_sensors()):
         name = radio.get_sensor_name(i)
         reading = radio.get_sensor_reading(i)
-        lines.append(f"{   {name:20s} {reading:16.3f}")
+        lines.append(f"   {name:20s} {reading:16.3f}")
     return lines
 
 
 def get_tx_settings(radio, lines=[]):
     lines.append(f"tx settings:")
     gain_limits = radio.get_tx_gain_range()
-    lines.append("   maximum transmit gain {:16.2f}".format(gain_limits[0]))
-    lines.append("   minimum transmit gain {:16.2f}".format(gain_limits[1]))
+    lines.append("   minimum transmit gain {:16.2f}".format(gain_limits[0]))
+    lines.append("   maximum transmit gain {:16.2f}".format(gain_limits[1]))
     lines.append("   current transmit gain {:16.2f}".format(radio.get_tx_gain()))
     rate_limits = radio.get_tx_rate_range()
-    lines.append("   maximum transmit rate {:16.3e}".format(rate_limits[0]))
-    lines.append("   minimum transmit rate {:16.3e}".format(rate_limits[1]))
+    lines.append("   minimum transmit rate {:16.3e}".format(rate_limits[0]))
+    lines.append("   maximum transmit rate {:16.3e}".format(rate_limits[1]))
     lines.append("   current transmit rate {:16.3e}".format(radio.get_rx_rate()))
     lines.append("   available transmit ports:")
-    for i in range(radio.get_num_tx_ports()):
-        lines.append("                          {:>16s}".format(radio.get_tx_port_name(i)))
+    for i in range(radio.get_tx_num_ports()):
+        lines.append("                         {:>16s}".format(radio.get_tx_port_name(i)))
     tx_port_name = radio.get_tx_port_name(radio.get_tx_port())
     lines.append("   current transmit port {:>16s}".format(tx_port_name))
     lines.append("   transmit if           {:16.3e}".format(radio.get_tx_if_freq()))
@@ -70,16 +75,16 @@ def get_tx_settings(radio, lines=[]):
 def get_rx_settings(radio, lines=[]):
     lines.append(f"rx settings:")
     gain_limits = radio.get_rx_gain_range()
-    lines.append("   maximum receive gain  {:16.2f}".format(gain_limits[0]))
-    lines.append("   minimum receive gain  {:16.2f}".format(gain_limits[1]))
+    lines.append("   minimum receive gain  {:16.2f}".format(gain_limits[0]))
+    lines.append("   maximum receive gain  {:16.2f}".format(gain_limits[1]))
     lines.append("   current receive gain  {:16.2f}".format(radio.get_rx_gain()))
     rate_limits = radio.get_rx_rate_range()
-    lines.append("   maximum receive rate  {:16.3e}".format(rate_limits[0]))
-    lines.append("   minimum receive rate  {:16.3e}".format(rate_limits[1]))
+    lines.append("   minimum receive rate  {:16.3e}".format(rate_limits[0]))
+    lines.append("   maximum receive rate  {:16.3e}".format(rate_limits[1]))
     lines.append("   current receive rate  {:16.3e}".format(radio.get_rx_rate()))
-    lines.append("   available transmit ports:")
-    for i in range(radio.get_num_rx_ports()):
-        lines.append("                          {:>16s}".format(radio.get_rx_port_name(i)))
+    lines.append("   available receive ports:")
+    for i in range(radio.get_rx_num_ports()):
+        lines.append("                         {:>16s}".format(radio.get_rx_port_name(i)))
     rx_port_name = radio.get_rx_port_name(radio.get_rx_port())
     lines.append("   current receive port  {:>16s}".format(rx_port_name))
     lines.append("   receive if            {:16.3e}".format(radio.get_rx_if_freq()))
