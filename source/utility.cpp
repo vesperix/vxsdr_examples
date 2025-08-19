@@ -1,3 +1,8 @@
+// Copyright (c) 2024 Vesperix Corporation
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+// Provides simple utilities for VXSDR programs
+
 #include <cctype>
 #include <chrono>
 #include <cmath>
