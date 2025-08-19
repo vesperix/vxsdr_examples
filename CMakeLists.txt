@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 set(vxsdr_examples_version_major  1)
 set(vxsdr_examples_version_minor  0)
-set(vxsdr_examples_version_patch  0)
+set(vxsdr_examples_version_patch  1)
 
 set(vxsdr_examples_version ${vxsdr_examples_version_major}.${vxsdr_examples_version_minor}.${vxsdr_examples_version_patch})
 
