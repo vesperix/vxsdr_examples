@@ -71,7 +71,7 @@ void add_tx_1ch_options(option_utils::program_options& desc) {
     desc.add_option("tx_freq", "TX center frequency in Hz", option_utils::supported_types::REAL);
     desc.add_option("tx_gain", "TX gain in dB", option_utils::supported_types::REAL, false, "0.0");
     desc.add_option("tx_ant", "TX antenna output selection", option_utils::supported_types::STRING);
-    desc.add_option("tx_iq_bias", "TX iq bias in the format \"(bias_t,bias_i))\"", option_utils::supported_types::STRING);
+    desc.add_option("tx_iq_bias", "TX iq bias in the format \"(bias_i,bias_q))\"", option_utils::supported_types::STRING);
     desc.add_option("tx_iq_corr", "TX iq correction in the format \"[corr_11,corr_12,corr_21,corr_22]\"", option_utils::supported_types::STRING);
     // clang-format on
 }
