@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
 
         auto pri_sec = vm["pri"].as<double>();
         if (pri_sec < 0.0) {
-            std::cerr << "pri must be positive" << std::endl;
+            std::cerr << "pri must be nonnegative" << std::endl;
             return 1;
         }
 
@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
 
         // the radio is now set up, so we can query it for settings
         double waveform_duration = n_samples / radio->get_tx_rate().value_or(-1);
-        if (waveform_duration > pri_sec) {
+        if (pri_sec > 0 and waveform_duration > pri_sec) {
             std::cerr << "duration of waveform is longer than pri (" << waveform_duration << ", " << pri_sec << "), check tx_rate"
                       << std::endl;
             return 1;
@@ -173,7 +173,8 @@ int main(int argc, char* argv[]) {
             return 1;
         }
 
-        std::this_thread::sleep_until(t_start + pri * n_pulses + 100ms);
+        vxsdr::duration duration = std::chrono::duration(std::chrono::milliseconds(std::llround(1e3 * duration_sec)));
+        std::this_thread::sleep_until(t_start + duration + 100ms);
 
         std::cout << "transmit complete" << std::endl;
     } catch (std::exception& e) {
