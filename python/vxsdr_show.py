@@ -103,8 +103,8 @@ def get_all_info(radio, lines=[]):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog=sys.argv[0], description="show information about a VXSDR")
 
-    parser.add_argument("-L", "--local_ip", default=None, help="the local IP address used to communicate with the VXSDR")
-    parser.add_argument("-D", "--device_ip", default=None, help="the IP address of the VXSDR")
+    parser.add_argument("-L", "--local_address", default=None, help="the local IP address used to communicate with the VXSDR")
+    parser.add_argument("-D", "--device_address", default=None, help="the IP address of the VXSDR")
 
     args = parser.parse_args()
 
