@@ -109,15 +109,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     my_config = {}
-    if args.local_ip is not None and args.device_ip is not None:
+    if args.local_address is not None and args.device_address is not None:
         # using UDP transport
         import ipaddress
-
-        local_addr = ipaddress.ip_address(args.local_ip)
-        device_addr = ipaddress.ip_address(args.device_ip)
-        my_config["udp_transport:local_address"] = local_addr
-        my_config["udp_transport:device_address"] = device_addr
-    elif args.local_ip is None and args.device_ip is None:
+        my_config["udp_transport:local_address"] = ipaddress.ip_address(args.local_address)
+        my_config["udp_transport:device_address"] = ipaddress.ip_address(args.device_address)
+    elif args.local_address is None and args.device_address is None:
         # using PCIE transport
         my_config["data_transport"] = int(vxsdr_py.transport_type.PCIE)
         my_config["command_transport"] = int(vxsdr_py.transport_type.PCIE)
